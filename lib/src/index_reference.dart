@@ -259,7 +259,7 @@ class AlgoliaIndexReference extends AlgoliaQuery {
       Response response = await delete(
         url,
         headers: algolia._header,
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaTask._(algolia, index, body);
     } catch (err) {

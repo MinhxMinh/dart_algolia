@@ -11,6 +11,7 @@ class AlgoliaObjectReference {
   final String _objectId;
 
   String get index => _index;
+
   String get objectID => _objectId;
 
   /// Get the object referred to by this [AlgoliaObjectReference].
@@ -23,7 +24,7 @@ class AlgoliaObjectReference {
       Response response = await get(
         url,
         headers: algolia._header,
-      );
+      ).timeout(algolia.readTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaObjectSnapshot.fromMap(algolia, _index, body);
     } catch (err) {
@@ -47,7 +48,7 @@ class AlgoliaObjectReference {
         headers: algolia._header,
         body: utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)),
         encoding: Encoding.getByName('utf-8'),
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaTask._(algolia, _index, body);
     } catch (err) {
@@ -77,7 +78,7 @@ class AlgoliaObjectReference {
         headers: algolia._header,
         body: utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)),
         encoding: Encoding.getByName('utf-8'),
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaTask._(algolia, _index, body);
     } catch (err) {
@@ -119,7 +120,7 @@ class AlgoliaObjectReference {
         headers: algolia._header,
         body: utf8.encode(json.encode(data, toEncodable: jsonEncodeHelper)),
         encoding: Encoding.getByName('utf-8'),
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaTask._(algolia, _index, body);
     } catch (err) {
@@ -141,7 +142,7 @@ class AlgoliaObjectReference {
       Response response = await delete(
         url,
         headers: algolia._header,
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return AlgoliaTask._(algolia, _index, body);
     } catch (err) {

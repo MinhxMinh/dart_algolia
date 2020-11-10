@@ -5,23 +5,37 @@ class Algolia {
     @required String applicationId,
     @required String apiKey,
     this.extraHeaders = const {},
+    Duration readTimeOut = const Duration(seconds: 5),
+    Duration writeTimeOut = const Duration(seconds: 5),
   })  : assert(applicationId != null, 'Application ID is required.'),
         assert(apiKey != null, 'API Key is required.'),
         applicationId = applicationId,
+        _readTimeOut = readTimeOut,
+        _writeTimeOut = writeTimeOut,
         _apiKey = apiKey;
 
   const Algolia._({
     @required String applicationId,
     @required String apiKey,
     this.extraHeaders = const {},
+    Duration readTimeOut = const Duration(seconds: 5),
+    Duration writeTimeOut = const Duration(seconds: 5),
   })  : assert(applicationId != null, 'Application ID is required.'),
         assert(apiKey != null, 'API Key is required.'),
         applicationId = applicationId,
-        _apiKey = apiKey;
+        _apiKey = apiKey,
+        _readTimeOut = readTimeOut,
+        _writeTimeOut = writeTimeOut;
 
   final String applicationId;
   final String _apiKey;
   final Map<String, String> extraHeaders;
+  final Duration _readTimeOut;
+  final Duration _writeTimeOut;
+
+  Duration get readTimeOut => _readTimeOut;
+
+  Duration get writeTimeOut => _writeTimeOut;
 
   Algolia get instance => Algolia._(
         applicationId: applicationId,

@@ -22,7 +22,7 @@ class AlgoliaIndexSettings extends AlgoliaSettings {
       Response response = await get(
         url,
         headers: algolia._header,
-      );
+      ).timeout(algolia.readTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       return body;
     } catch (err) {
@@ -67,7 +67,7 @@ class AlgoliaSettings {
         body: utf8
             .encode(json.encode(_parameters, toEncodable: jsonEncodeHelper)),
         encoding: Encoding.getByName('utf-8'),
-      );
+      ).timeout(algolia.writeTimeOut);
       Map<String, dynamic> body = json.decode(response.body);
       AlgoliaTask task = AlgoliaTask._(algolia, _index, body);
       return task;

@@ -33,7 +33,7 @@ class AlgoliaTask {
     Response response = await get(
       url,
       headers: algolia._header,
-    );
+    ).timeout(algolia.readTimeOut);
     Map<String, dynamic> body = json.decode(response.body);
     return body['status'] == 'published';
   }
